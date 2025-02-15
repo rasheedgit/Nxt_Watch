@@ -15,7 +15,7 @@ import {
   ErrorMessage,
 } from './styledComponents'
 
-class Login extends Component {
+class LoginRoute extends Component {
   state = {
     showPassword: false,
     username: '',
@@ -125,4 +125,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default LoginRoute
