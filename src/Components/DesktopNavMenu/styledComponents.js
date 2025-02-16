@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 export const NavMenuContainer = styled.div`
   display: none;
-  
+
   @media (min-width: ${({trending}) => (trending ? '992px' : '768px')}) {
     position: fixed;
     top: 80px;
@@ -83,5 +83,5 @@ export const ContactDescription = styled.p`
   font-family: Roboto;
   font-weight: bold;
   line-height: 1.8;
-  width: 80%
+  width: 80%;
 `

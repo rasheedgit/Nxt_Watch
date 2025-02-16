@@ -45,7 +45,7 @@ class TrendingRoute extends Component {
   getVideosList = async () => {
     this.setState({apiStatus: apiStatusConstance.LOADING})
 
-    const apiUrl = `https://ais.ccbp.in/videos/trending`
+    const apiUrl = `https://apis.ccbp.in/videos/trending`
     const jwtToken = Cookies.get('jwt_token')
     const option = {
       method: 'GET',

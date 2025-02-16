@@ -1,31 +1,41 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {ImCancelCircle} from 'react-icons/im'
-import {FiSearch} from 'react-icons/fi'
+import ReactPlayer from 'react-player'
+import {formatDistanceToNow} from 'date-fns'
+import {
+  AiOutlineLike,
+  AiOutlineDislike,
+  AiOutlineAppstoreAdd,
+} from 'react-icons/ai'
+
 import DarkModeContext from '../../Context/darkModeContext'
+import SavedVideosContext from '../../Context/savedVideosContext'
 
 import Header from '../Header'
-import VideoItem from '../VideoItem'
 import {
   HomeContainer,
-  PremiumContainer,
-  WebsiteLogo,
-  PremiumDescription,
-  PremiumButton,
-  CancelPremiumButton,
   VideosContent,
-  SearchContainer,
-  SearchInput,
-  SearchButton,
-  SearchIcon,
   FlexColumn,
   FailureImage,
   FailureTitle,
   FailureDescription,
   FailureRetry,
-  VideoList,
 } from '../HomeRoute/styledComponents'
+import {
+  VideoContentContainer,
+  VideoInfoContainer,
+  VideoTitle,
+  FlexRow,
+  GrayText,
+  Icons,
+  IconsButton,
+  Line,
+  FlexRowTwo,
+  ChannelLogo,
+  ChannelName,
+  Description,
+} from './styledComponents'
 import DesktopNavMenu from '../DesktopNavMenu'
 
 const apiStatusConstance = {
@@ -37,10 +47,10 @@ const apiStatusConstance = {
 
 class VideoDetailsRoute extends Component {
   state = {
-    showPremium: true,
-    searchQuery: '',
     apiStatus: apiStatusConstance.INITIAL,
-    videosData: {total: 0},
+    videoDetails: {},
+    isLiked: false,
+    isDisliked: false,
   }
 
   componentDidMount() {
@@ -49,8 +59,10 @@ class VideoDetailsRoute extends Component {
 
   getVideosList = async () => {
     this.setState({apiStatus: apiStatusConstance.LOADING})
-    const {searchQuery} = this.state
-    const apiUrl = `https://apis.ccbp.in/videos/all?search=${searchQuery}`
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    const apiUrl = `https://apis.ccbp.in/videos/${id}`
     const jwtToken = Cookies.get('jwt_token')
     const option = {
       method: 'GET',
@@ -64,23 +76,23 @@ class VideoDetailsRoute extends Component {
 
       if (response.ok === true) {
         const formattedData = {
-          total: data.total,
-          videos: data.videos.map(eachItem => ({
-            channel: {
-              name: eachItem.channel.name,
-              profileImageUrl: eachItem.channel.profile_image_url,
-            },
-            id: eachItem.id,
-            publishedAt: eachItem.published_at,
-            thumbnailUrl: eachItem.thumbnail_url,
-            title: eachItem.title,
-            viewCount: eachItem.view_count,
-          })),
+          id: data.video_details.id,
+          title: data.video_details.title,
+          videoUrl: data.video_details.video_url,
+          thumbnailUrl: data.video_details.thumbnail_url,
+          channel: {
+            name: data.video_details.channel.name,
+            profileImageUrl: data.video_details.channel.profile_image_url,
+            subscriberCount: data.video_details.channel.subscriber_count,
+          },
+          viewCount: data.video_details.view_count,
+          publishedAt: data.video_details.published_at,
+          description: data.video_details.description,
         }
 
         this.setState({
           apiStatus: apiStatusConstance.SUCCESS,
-          videosData: formattedData,
+          videoDetails: formattedData,
         })
       } else {
         this.setState({apiStatus: apiStatusConstance.FAILURE})
@@ -91,9 +103,19 @@ class VideoDetailsRoute extends Component {
     }
   }
 
-  cancelShowPremium = () => this.setState({showPremium: false})
+  onLike = () => {
+    this.setState(prevState => ({
+      isLiked: !prevState.isLiked,
+      isDisliked: prevState.isLiked ? prevState.isDisliked : false,
+    }))
+  }
 
-  changeSearchQuery = event => this.setState({searchQuery: event.target.value})
+  onDislike = () => {
+    this.setState(prevState => ({
+      isDisliked: !prevState.isDisliked,
+      isLiked: prevState.isDisliked ? prevState.isLiked : false,
+    }))
+  }
 
   loadingView = () => (
     <FlexColumn data-testid="loader">
@@ -101,34 +123,89 @@ class VideoDetailsRoute extends Component {
     </FlexColumn>
   )
 
-  noVideoFound = isDark => (
-    <FlexColumn>
-      <FailureImage
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-        alt="no videos"
-      />
-      <FailureTitle isDark={isDark}>No Search results found</FailureTitle>
-      <FailureDescription>
-        Try different key words or remove search filter
-      </FailureDescription>
-      <FailureRetry onClick={this.getVideosList} type="button">
-        Retry
-      </FailureRetry>
-    </FlexColumn>
-  )
-
   successView = isDark => {
-    const {videosData} = this.state
-    if (videosData.total === 0) {
-      return this.noVideoFound(isDark)
-    }
-
+    const {videoDetails, isDisliked, isLiked} = this.state
+    const {
+      id,
+      title,
+      videoUrl,
+      channel,
+      viewCount,
+      publishedAt,
+      description,
+    } = videoDetails
+    const {name, profileImageUrl, subscriberCount} = channel
+    const timeAgo = formatDistanceToNow(new Date(publishedAt)).split(' ')
     return (
-      <VideoList>
-        {videosData.videos.map(eachItem => (
-          <VideoItem key={eachItem.id} videoDetails={eachItem} />
-        ))}
-      </VideoList>
+      <SavedVideosContext.Consumer>
+        {value => {
+          const {savedVideos, addVideo, removeVideo} = value
+          const isVideoSaved = savedVideos.find(eachItem => eachItem.id === id)
+          const onClickSaveButton = () => {
+            if (isVideoSaved) {
+              removeVideo(id)
+            } else {
+              addVideo(videoDetails)
+            }
+          }
+          return (
+            <VideoContentContainer>
+              <ReactPlayer width="100%" controls url={videoUrl} />
+              <VideoInfoContainer>
+                <VideoTitle isDark={isDark}>{title}</VideoTitle>
+                <FlexRow width="100%">
+                  <FlexRow width="160px">
+                    <GrayText size="14px" right="10px">
+                      {viewCount} views
+                    </GrayText>
+                    <GrayText size="14px" right="10px">
+                      {timeAgo[1]} {timeAgo[2]} ago
+                    </GrayText>
+                  </FlexRow>
+                  <FlexRow>
+                    <IconsButton onClick={this.onLike}>
+                      <Icons isActive={isLiked} as={AiOutlineLike} />
+                      <GrayText isActive={isLiked} size="16px" right="20px">
+                        Like
+                      </GrayText>
+                    </IconsButton>
+                    <IconsButton onClick={this.onDislike}>
+                      <Icons isActive={isDisliked} as={AiOutlineDislike} />
+                      <GrayText isActive={isDisliked} size="16px" right="30px">
+                        Dislike
+                      </GrayText>
+                    </IconsButton>
+                    <IconsButton onClick={onClickSaveButton}>
+                      <Icons
+                        isActive={isVideoSaved}
+                        as={AiOutlineAppstoreAdd}
+                      />
+                      <GrayText
+                        isActive={isVideoSaved}
+                        size="16px"
+                        right="20px"
+                      >
+                        Save
+                      </GrayText>
+                    </IconsButton>
+                  </FlexRow>
+                </FlexRow>
+                <Line />
+                <FlexRowTwo>
+                  <ChannelLogo src={profileImageUrl} alt="channel logo" />
+                  <div>
+                    <ChannelName isDark={isDark}>{name}</ChannelName>
+                    <GrayText size="14px">
+                      {subscriberCount} subscribers
+                    </GrayText>
+                    <Description isDark={isDark}>{description}</Description>
+                  </div>
+                </FlexRowTwo>
+              </VideoInfoContainer>
+            </VideoContentContainer>
+          )
+        }}
+      </SavedVideosContext.Consumer>
     )
   }
 
@@ -167,8 +244,6 @@ class VideoDetailsRoute extends Component {
   }
 
   render() {
-    const {showPremium} = this.state
-
     return (
       <DarkModeContext.Consumer>
         {value => {
@@ -177,43 +252,7 @@ class VideoDetailsRoute extends Component {
             <HomeContainer isDark={isDark}>
               <Header />
               <DesktopNavMenu />
-
-              {showPremium && (
-                <PremiumContainer>
-                  <CancelPremiumButton
-                    onClick={this.cancelShowPremium}
-                    type="button"
-                  >
-                    <ImCancelCircle size="16" />
-                  </CancelPremiumButton>
-                  <WebsiteLogo
-                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                    alt="website logo"
-                  />
-                  <PremiumDescription>
-                    Buy Nxt Watch Premium prepaid plans with UPI
-                  </PremiumDescription>
-                  <PremiumButton type="button">GET IT NOW</PremiumButton>
-                </PremiumContainer>
-              )}
-
               <VideosContent isDark={isDark}>
-                <SearchContainer isDark={isDark}>
-                  <SearchInput
-                    type="search"
-                    placeholder="Search"
-                    isDark={isDark}
-                    onChange={this.changeSearchQuery}
-                  />
-                  <SearchButton
-                    type="button"
-                    onClick={this.getVideosList}
-                    isDark={isDark}
-                  >
-                    <SearchIcon as={FiSearch} />
-                  </SearchButton>
-                </SearchContainer>
-
                 {this.renderViews(isDark)}
               </VideosContent>
             </HomeContainer>

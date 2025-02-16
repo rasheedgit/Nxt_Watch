@@ -13,8 +13,14 @@ import DarkModeContext from '../../Context/darkModeContext'
 
 const VideoItem = props => {
   const {videoDetails} = props
-  const {id, title, thumbnailUrl, channel, viewCount, publishedAt} =
-    videoDetails
+  const {
+    id,
+    title,
+    thumbnailUrl,
+    channel,
+    viewCount,
+    publishedAt,
+  } = videoDetails
   const {name, profileImageUrl} = channel
 
   return (

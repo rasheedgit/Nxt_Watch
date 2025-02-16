@@ -30,6 +30,8 @@ import {
   LogoutPopupButton,
 } from './styledComponents'
 
+import NavMenuOnPopup from '../NavMenuOnPopup'
+
 class Header extends Component {
   onClickLogout = () => {
     Cookies.remove('jwt_token')
@@ -59,9 +61,17 @@ class Header extends Component {
                   </MobileNavButton>
                 </MobileNavItem>
                 <MobileNavItem>
-                  <MobileNavButton>
-                    <MobileNavIcons as={GiHamburgerMenu} isDark={isDark} />
-                  </MobileNavButton>
+                  <Popup
+                    modal
+                    trigger={
+                      <MobileNavButton>
+                        <MobileNavIcons as={GiHamburgerMenu} isDark={isDark} />
+                      </MobileNavButton>
+                    }
+                    className="popup-content"
+                  >
+                    {close => <NavMenuOnPopup close={close} />}
+                  </Popup>
                 </MobileNavItem>
                 <MobileNavItem>
                   <Popup

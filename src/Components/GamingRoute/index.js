@@ -1,31 +1,27 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {ImCancelCircle} from 'react-icons/im'
-import {FiSearch} from 'react-icons/fi'
+import {IoGameController} from 'react-icons/io5'
 import DarkModeContext from '../../Context/darkModeContext'
 
 import Header from '../Header'
-import VideoItem from '../VideoItem'
+import GameItemCard from '../GameItemCard'
 import {
   HomeContainer,
-  PremiumContainer,
-  WebsiteLogo,
-  PremiumDescription,
-  PremiumButton,
-  CancelPremiumButton,
-  VideosContent,
-  SearchContainer,
-  SearchInput,
-  SearchButton,
-  SearchIcon,
   FlexColumn,
   FailureImage,
   FailureTitle,
   FailureDescription,
   FailureRetry,
-  VideoList,
+  VideosContent,
 } from '../HomeRoute/styledComponents'
+import {
+  TrendingHeader,
+  RouteHeaderIconContainer,
+  RouteTitle,
+  RouteIcon,
+} from '../TrendingRoute/styledComponents'
+import {GamesList} from './styledComponents'
 import DesktopNavMenu from '../DesktopNavMenu'
 
 const apiStatusConstance = {
@@ -37,8 +33,6 @@ const apiStatusConstance = {
 
 class GamingRoute extends Component {
   state = {
-    showPremium: true,
-    searchQuery: '',
     apiStatus: apiStatusConstance.INITIAL,
     videosData: {total: 0},
   }
@@ -49,8 +43,7 @@ class GamingRoute extends Component {
 
   getVideosList = async () => {
     this.setState({apiStatus: apiStatusConstance.LOADING})
-    const {searchQuery} = this.state
-    const apiUrl = `https://apis.ccbp.in/videos/all?search=${searchQuery}`
+    const apiUrl = `https://apis.ccbp.in/videos/gaming`
     const jwtToken = Cookies.get('jwt_token')
     const option = {
       method: 'GET',
@@ -66,12 +59,7 @@ class GamingRoute extends Component {
         const formattedData = {
           total: data.total,
           videos: data.videos.map(eachItem => ({
-            channel: {
-              name: eachItem.channel.name,
-              profileImageUrl: eachItem.channel.profile_image_url,
-            },
             id: eachItem.id,
-            publishedAt: eachItem.published_at,
             thumbnailUrl: eachItem.thumbnail_url,
             title: eachItem.title,
             viewCount: eachItem.view_count,
@@ -90,10 +78,6 @@ class GamingRoute extends Component {
       console.log(err)
     }
   }
-
-  cancelShowPremium = () => this.setState({showPremium: false})
-
-  changeSearchQuery = event => this.setState({searchQuery: event.target.value})
 
   loadingView = () => (
     <FlexColumn data-testid="loader">
@@ -124,11 +108,11 @@ class GamingRoute extends Component {
     }
 
     return (
-      <VideoList>
+      <GamesList>
         {videosData.videos.map(eachItem => (
-          <VideoItem key={eachItem.id} videoDetails={eachItem} />
+          <GameItemCard key={eachItem.id} gameDetails={eachItem} />
         ))}
-      </VideoList>
+      </GamesList>
     )
   }
 
@@ -167,8 +151,6 @@ class GamingRoute extends Component {
   }
 
   render() {
-    const {showPremium} = this.state
-
     return (
       <DarkModeContext.Consumer>
         {value => {
@@ -177,43 +159,13 @@ class GamingRoute extends Component {
             <HomeContainer isDark={isDark}>
               <Header />
               <DesktopNavMenu />
-
-              {showPremium && (
-                <PremiumContainer>
-                  <CancelPremiumButton
-                    onClick={this.cancelShowPremium}
-                    type="button"
-                  >
-                    <ImCancelCircle size="16" />
-                  </CancelPremiumButton>
-                  <WebsiteLogo
-                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                    alt="website logo"
-                  />
-                  <PremiumDescription>
-                    Buy Nxt Watch Premium prepaid plans with UPI
-                  </PremiumDescription>
-                  <PremiumButton type="button">GET IT NOW</PremiumButton>
-                </PremiumContainer>
-              )}
-
+              <TrendingHeader isDark={isDark}>
+                <RouteHeaderIconContainer isDark={isDark}>
+                  <RouteIcon as={IoGameController} />
+                </RouteHeaderIconContainer>
+                <RouteTitle isDark={isDark}>Gaming</RouteTitle>
+              </TrendingHeader>
               <VideosContent isDark={isDark}>
-                <SearchContainer isDark={isDark}>
-                  <SearchInput
-                    type="search"
-                    placeholder="Search"
-                    isDark={isDark}
-                    onChange={this.changeSearchQuery}
-                  />
-                  <SearchButton
-                    type="button"
-                    onClick={this.getVideosList}
-                    isDark={isDark}
-                  >
-                    <SearchIcon as={FiSearch} />
-                  </SearchButton>
-                </SearchContainer>
-
                 {this.renderViews(isDark)}
               </VideosContent>
             </HomeContainer>

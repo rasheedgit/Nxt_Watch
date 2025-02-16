@@ -1,3 +1,4 @@
+import {formatDistanceToNow} from 'date-fns'
 import {
   VideoLink,
   ListItem,
@@ -13,10 +14,16 @@ import DarkModeContext from '../../Context/darkModeContext'
 
 const VideoItem = props => {
   const {videoDetails} = props
-  const {id, title, thumbnailUrl, channel, viewCount, publishedAt} =
-    videoDetails
+  const {
+    id,
+    title,
+    thumbnailUrl,
+    channel,
+    viewCount,
+    publishedAt,
+  } = videoDetails
   const {name, profileImageUrl} = channel
-
+  const timeAgo = formatDistanceToNow(new Date(publishedAt)).split(' ')
   return (
     <DarkModeContext.Consumer>
       {value => {
@@ -32,7 +39,9 @@ const VideoItem = props => {
                   <List>
                     <VideoListItem>{name}</VideoListItem>
                     <VideoListItem>{viewCount} views</VideoListItem>
-                    <VideoListItem>{publishedAt}</VideoListItem>
+                    <VideoListItem>
+                      {timeAgo[1]} {timeAgo[2]} ago
+                    </VideoListItem>
                   </List>
                 </FlexColumn>
               </FlexRow>

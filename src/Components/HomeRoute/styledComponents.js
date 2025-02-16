@@ -9,7 +9,7 @@ export const HomeContainer = styled.div`
   padding-top: 80px;
   background: ${({isDark}) => (isDark ? '#181818' : '#F9F9F9')};
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     padding-left: 260px;
   }
 `
@@ -17,9 +17,9 @@ export const HomeContainer = styled.div`
 export const PremiumContainer = styled.div`
   width: 100%;
   padding: 10px;
-  background: url("https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png");
-  background-size: cover; 
-  background-position: center; 
+  background: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   padding-right: 20px;
@@ -47,12 +47,12 @@ export const WebsiteLogo = styled.img`
 export const PremiumDescription = styled.p`
   font-size: 16px;
   font-family: Roboto;
-  color: #27292E;
+  color: #27292e;
   line-height: 1.7;
   margin-top: 10px;
   max-width: 250px;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     font-size: 20px;
     max-width: 400px;
     margin-top: 15px;
@@ -75,6 +75,8 @@ export const VideosContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: ${({isDark}) => (isDark ? '#000' : '')};
+  padding-top: 10px;
 `
 export const SearchContainer = styled.div`
   width: 95%;
@@ -86,7 +88,7 @@ export const SearchContainer = styled.div`
   background: ${({isDark}) => (isDark ? '#181818' : '#fff')};
   margin: 20px;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     width: 55%;
     max-width: none;
     align-self: flex-start;
@@ -136,19 +138,19 @@ export const FailureTitle = styled.h1`
   text-align: center;
   font-size: 20px;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     font-size: 30px;
     margin-bottom: 10px;
   }
 `
 export const FailureDescription = styled.p`
-  color: #5A7B97;
+  color: #5a7b97;
   font-family: Roboto;
   text-align: center;
   font-size: 16px;
   width: 80%;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     font-size: 18px;
   }
 `
@@ -162,7 +164,7 @@ export const FailureRetry = styled.button`
   outline: none;
   cursor: pointer;
   border-radius: 4px;
-  background: #4A47E0;
+  background: #4a47e0;
 `
 export const VideoList = styled.ul`
   list-style: none;
@@ -174,7 +176,7 @@ export const VideoList = styled.ul`
   row-gap: 30px;
   justify-content: center;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     padding: 0 20px;
   }
 `

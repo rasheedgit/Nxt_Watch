@@ -9,7 +9,7 @@ export const VideoLink = styled(Link)`
 export const ListItem = styled.li`
   width: 100%;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     display: flex;
   }
 `
@@ -17,7 +17,7 @@ export const VideoThumbnail = styled.img`
   width: 100%;
   margin-bottom: 10px;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     width: 60%;
     margin-right: 20px;
   }
@@ -31,7 +31,7 @@ export const ChannelLogo = styled.img`
   width: 40px;
   margin: 0 10px 0 10px;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     display: none;
   }
 `
@@ -49,7 +49,7 @@ export const VideoTitle = styled.p`
   line-height: 1.7;
   color: ${({isDark}) => (isDark ? '#fff' : '#000')};
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     font-size: 17px;
   }
 `
@@ -58,7 +58,7 @@ export const List = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
-  color: #414C66;
+  color: #414c66;
   padding: 0;
   gap: 20px;
 `
@@ -68,7 +68,7 @@ export const VideoListItem = styled.li`
   font-family: Roboto;
   color: gray;
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     font-size: 14px;
   }
 `

@@ -23,7 +23,7 @@ export const MobileNavList = styled.ul`
   display: flex;
   align-items: center;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     display: none;
   }
 `
@@ -45,7 +45,7 @@ export const MobileNavIcons = styled.div`
 export const DesktopNavList = styled.ul`
   display: none;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     list-style: none;
     padding-left: 0%;
     display: flex;
@@ -89,7 +89,7 @@ export const LogoutPopup = styled.div`
   border-radius: 10px;
   padding: 30px 30px;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     width: 450px;
   }
 `

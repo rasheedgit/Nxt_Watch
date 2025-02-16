@@ -42,7 +42,7 @@ export const List = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
-  color: #414C66;
+  color: #414c66;
   padding: 0;
   gap: 20px;
 `
