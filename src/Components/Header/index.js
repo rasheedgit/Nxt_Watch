@@ -10,7 +10,7 @@ import {FiLogOut} from 'react-icons/fi'
 import './index.css'
 
 import DarkModeContext from '../../Context/darkModeContext'
-
+import {RouterLink} from '../DesktopNavMenu/styledComponents'
 import {
   HeaderContainer,
   WebsiteLogo,
@@ -46,17 +46,19 @@ class Header extends Component {
           const {isDark, toggleDarkMode} = value
           return (
             <HeaderContainer isDark={isDark}>
-              <WebsiteLogo
-                src={
-                  isDark
-                    ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                    : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-                }
-                alt="website logo"
-              />
+              <RouterLink to="/">
+                <WebsiteLogo
+                  src={
+                    isDark
+                      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+                      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                  }
+                  alt="website logo"
+                />
+              </RouterLink>
               <MobileNavList className="mobile-nav-list">
                 <MobileNavItem>
-                  <MobileNavButton onClick={toggleDarkMode}>
+                  <MobileNavButton data-testid="theme" onClick={toggleDarkMode}>
                     <MobileNavIcons as={CgDarkMode} isDark={isDark} />
                   </MobileNavButton>
                 </MobileNavItem>

@@ -26,7 +26,7 @@ const NavMenuOnPopup = props => {
         const {isDark} = value
         return (
           <NavMenuContainer trending={trending} isDark={isDark}>
-            <CancelButton onClick={close}>
+            <CancelButton data-testid="close" onClick={close}>
               <ImCancelCircle color={isDark ? '#fff' : '#000'} size="20" />
             </CancelButton>
             <NavMenuList>

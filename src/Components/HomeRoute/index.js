@@ -96,22 +96,22 @@ class HomeRoute extends Component {
   changeSearchQuery = event => this.setState({searchQuery: event.target.value})
 
   loadingView = () => (
-    <FlexColumn data-testid="loader">
-      <Loader type="ThreeDots" color="#0000FF" height="50" width="50" />
+    <FlexColumn data-testid='loader'>
+      <Loader type='ThreeDots' color='#0000FF' height='50' width='50' />
     </FlexColumn>
   )
 
   noVideoFound = isDark => (
     <FlexColumn>
       <FailureImage
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-        alt="no videos"
+        src='https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png'
+        alt='no videos'
       />
       <FailureTitle isDark={isDark}>No Search results found</FailureTitle>
       <FailureDescription>
         Try different key words or remove search filter
       </FailureDescription>
-      <FailureRetry onClick={this.getVideosList} type="button">
+      <FailureRetry onClick={this.getVideosList} type='button'>
         Retry
       </FailureRetry>
     </FlexColumn>
@@ -140,13 +140,13 @@ class HomeRoute extends Component {
             ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
             : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
         }
-        alt="failure view"
+        alt='failure view'
       />
       <FailureTitle isDark={isDark}>Oops! Something Went Wrong</FailureTitle>
       <FailureDescription>
         We are having some trouble to complete your request. Please try again.
       </FailureDescription>
-      <FailureRetry onClick={this.getVideosList} type="button">
+      <FailureRetry onClick={this.getVideosList} type='button'>
         Retry
       </FailureRetry>
     </FlexColumn>
@@ -179,34 +179,36 @@ class HomeRoute extends Component {
               <DesktopNavMenu />
 
               {showPremium && (
-                <PremiumContainer>
+                <PremiumContainer data-testid='banner'>
                   <CancelPremiumButton
+                    data-testid='close'
                     onClick={this.cancelShowPremium}
-                    type="button"
+                    type='button'
                   >
-                    <ImCancelCircle size="16" />
+                    <ImCancelCircle size='16' />
                   </CancelPremiumButton>
                   <WebsiteLogo
-                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                    alt="website logo"
+                    src='https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                    alt='nxt watch logo'
                   />
                   <PremiumDescription>
                     Buy Nxt Watch Premium prepaid plans with UPI
                   </PremiumDescription>
-                  <PremiumButton type="button">GET IT NOW</PremiumButton>
+                  <PremiumButton type='button'>GET IT NOW</PremiumButton>
                 </PremiumContainer>
               )}
 
               <VideosContent isDark={isDark}>
                 <SearchContainer isDark={isDark}>
                   <SearchInput
-                    type="search"
-                    placeholder="Search"
+                    type='search'
+                    placeholder='Search'
                     isDark={isDark}
                     onChange={this.changeSearchQuery}
                   />
                   <SearchButton
-                    type="button"
+                    data-testid='searchButton'
+                    type='button'
                     onClick={this.getVideosList}
                     isDark={isDark}
                   >

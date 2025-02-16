@@ -46,7 +46,7 @@ export const List = styled.ul`
   padding: 0;
   gap: 20px;
 `
-export const VideoListItem = styled.li`
+export const VideoListItem = styled.p`
   margin: 0;
   font-size: 12px;
   font-family: Roboto;
