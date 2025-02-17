@@ -51,7 +51,7 @@ export const TrendingVideoList = styled.ul`
   justify-content: center;
 
   @media (min-width: 576px) {
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
     padding: 0 20px;
   }
 `

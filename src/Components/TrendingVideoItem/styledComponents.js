@@ -18,7 +18,7 @@ export const VideoThumbnail = styled.img`
   margin-bottom: 10px;
 
   @media (min-width: 576px) {
-    width: 60%;
+    width: 50%;
     margin-right: 20px;
   }
 `
@@ -41,7 +41,7 @@ export const FlexColumn = styled.div`
   flex-direction: column;
 `
 export const VideoTitle = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   font-family: Roboto;
   font-weight: 500;
   margin: 0;
@@ -50,7 +50,11 @@ export const VideoTitle = styled.p`
   color: ${({isDark}) => (isDark ? '#fff' : '#000')};
 
   @media (min-width: 576px) {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 20px;
   }
 `
 export const List = styled.ul`
@@ -62,7 +66,7 @@ export const List = styled.ul`
   padding: 0;
   gap: 20px;
 `
-export const VideoListItem = styled.li`
+export const VideoListItem = styled.p`
   margin: 0;
   font-size: 12px;
   font-family: Roboto;

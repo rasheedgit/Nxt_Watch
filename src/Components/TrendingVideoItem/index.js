@@ -36,9 +36,15 @@ const VideoItem = props => {
                 <FlexColumn>
                   <VideoTitle isDark={isDark}>{title}</VideoTitle>
                   <List>
-                    <VideoListItem>{name}</VideoListItem>
-                    <VideoListItem>{viewCount} views</VideoListItem>
-                    <VideoListItem>{publishedAt}</VideoListItem>
+                    <li>
+                      <VideoListItem>{name}</VideoListItem>
+                    </li>
+                    <li>
+                      <VideoListItem>{viewCount} views</VideoListItem>
+                    </li>
+                    <li>
+                      <VideoListItem>{publishedAt}</VideoListItem>
+                    </li>
                   </List>
                 </FlexColumn>
               </FlexRow>

@@ -7,8 +7,6 @@ import {CgDarkMode} from 'react-icons/cg'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {FiLogOut} from 'react-icons/fi'
 
-import './index.css'
-
 import DarkModeContext from '../../Context/darkModeContext'
 import {RouterLink} from '../DesktopNavMenu/styledComponents'
 import {
@@ -78,6 +76,7 @@ class Header extends Component {
                 <MobileNavItem>
                   <Popup
                     modal
+                    overlayStyle={{background: 'rgba(0, 0, 0, 0.7)'}}
                     trigger={
                       <MobileNavButton>
                         <MobileNavIcons as={FiLogOut} isDark={isDark} />
@@ -121,6 +120,7 @@ class Header extends Component {
                 <DesktopNavItem>
                   <Popup
                     modal
+                    overlayStyle={{background: 'rgba(0, 0, 0, 0.7)'}}
                     trigger={
                       <DesktopLogoutButton isDark={isDark}>
                         Logout
@@ -131,7 +131,7 @@ class Header extends Component {
                     {close => (
                       <LogoutPopup isDark={isDark}>
                         <LogoutPopupDescription isDark={isDark}>
-                          Are you sure you want to logout?
+                          Are you sure, you want to logout
                         </LogoutPopupDescription>
                         <FlexRow>
                           <LogoutPopupButton onClick={close}>

@@ -185,7 +185,7 @@ class VideoDetailsRoute extends Component {
                         size="16px"
                         right="20px"
                       >
-                        Save
+                        Save{`${isVideoSaved ? 'd' : ''}`}
                       </GrayText>
                     </IconsButton>
                   </FlexRow>

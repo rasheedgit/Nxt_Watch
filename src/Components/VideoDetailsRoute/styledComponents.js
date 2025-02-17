@@ -17,10 +17,11 @@ export const VideoInfoContainer = styled.div`
     width: 100%;
   }
 `
-export const VideoTitle = styled.h1`
+export const VideoTitle = styled.p`
   color: ${({isDark}) => (isDark ? '#fff' : '#000')};
   font-size: 18px;
   font-family: Roboto;
+  font-weight: bold;
   line-height: 1.6;
   margin-bottom: 20px;
 `
@@ -33,7 +34,7 @@ export const FlexRow = styled.div`
   margin-bottom: 5px;
 `
 export const GrayText = styled.p`
-  color: ${({isActive}) => (isActive ? '#0096FF' : 'gray')};
+  color: ${({isActive}) => (isActive ? '#2563eb' : '#64748b')};
   font-size: ${({size}) => size};
   font-family: Roboto;
   margin: 10px 0;
@@ -41,7 +42,7 @@ export const GrayText = styled.p`
 `
 export const Icons = styled.div`
   font-size: 24px;
-  color: ${({isActive}) => (isActive ? '#0096FF' : 'gray')};
+  color: ${({isActive}) => (isActive ? '#2563eb' : '#64748b')};
   margin-right: 5px;
 `
 export const IconsButton = styled.button`
