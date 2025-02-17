@@ -150,7 +150,7 @@ class VideoDetailsRoute extends Component {
           }
           return (
             <VideoContentContainer>
-              <ReactPlayer width="100%" controls url={videoUrl} />
+              <ReactPlayer width="100%" controls playing url={videoUrl} />
               <VideoInfoContainer>
                 <VideoTitle isDark={isDark}>{title}</VideoTitle>
                 <FlexRow width="100%">
