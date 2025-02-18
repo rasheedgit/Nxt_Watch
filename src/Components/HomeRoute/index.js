@@ -108,7 +108,7 @@ class HomeRoute extends Component {
         alt="no videos"
       />
       <FailureTitle isDark={isDark}>No Search results found</FailureTitle>
-      <FailureDescription>
+      <FailureDescription isDark={isDark}>
         Try different key words or remove search filter
       </FailureDescription>
       <FailureRetry onClick={this.getVideosList} type="button">

@@ -106,14 +106,14 @@ class VideoDetailsRoute extends Component {
   onLike = () => {
     this.setState(prevState => ({
       isLiked: !prevState.isLiked,
-      isDisliked: prevState.isLiked ? prevState.isDisliked : false,
+      isDisliked: false,
     }))
   }
 
   onDislike = () => {
     this.setState(prevState => ({
       isDisliked: !prevState.isDisliked,
-      isLiked: prevState.isDisliked ? prevState.isLiked : false,
+      isLiked: false,
     }))
   }
 

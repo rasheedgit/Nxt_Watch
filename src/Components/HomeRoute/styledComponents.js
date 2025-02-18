@@ -144,7 +144,7 @@ export const FailureTitle = styled.h1`
   }
 `
 export const FailureDescription = styled.p`
-  color: #5a7b97;
+  color: ${({isDark}) => (isDark ? '#fff' : '#5a7b97')};
   font-family: Roboto;
   text-align: center;
   font-size: 16px;
