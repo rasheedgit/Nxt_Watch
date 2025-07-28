@@ -13,6 +13,7 @@ import {
   CheckboxLabel,
   LoginButton,
   ErrorMessage,
+  UserValue,
 } from './styledComponents'
 
 class LoginRoute extends Component {
@@ -82,7 +83,7 @@ class LoginRoute extends Component {
                   alt="website logo"
                 />
                 <InputLabel isDark={isDark} htmlFor="username">
-                  USERNAME
+                  USERNAME <UserValue>rahul</UserValue>
                 </InputLabel>
                 <InputField
                   id="username"
@@ -93,7 +94,7 @@ class LoginRoute extends Component {
                   isDark={isDark}
                 />
                 <InputLabel isDark={isDark} htmlFor="password">
-                  PASSWORD
+                  PASSWORD <UserValue>rahul@2021</UserValue>
                 </InputLabel>
                 <InputField
                   id="password"

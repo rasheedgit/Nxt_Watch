@@ -47,6 +47,10 @@ export const InputLabel = styled.label`
   margin-bottom: 6px;
 `
 
+export const UserValue = styled.span`
+  color: red;
+`
+
 export const InputField = styled.input`
   width: 100%;
   border: solid 1px #abb1b9;
